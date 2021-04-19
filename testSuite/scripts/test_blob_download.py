@@ -287,7 +287,7 @@ class Blob_Download_User_Scenario(unittest.TestCase):
         self.assertTrue(result)
 
         # execute the validator.
-        dir_sas = util.get_resource_sas(dir_name)
+        dir_sas = util.get_resource_sas(dir_name+"/")
         result = util.Command("testBlob").add_arguments(dir_path).add_arguments(dir_sas). \
             add_flags("is-object-dir", "true").execute_azcopy_verify()
         self.assertTrue(result)

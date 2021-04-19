@@ -71,7 +71,7 @@ class Blob_Sync_User_Scenario(unittest.TestCase):
 
         # sync to local
         src = vdir_sas
-        dst = dir_path
+        dst = dir_path + '/'
         result = util.Command("sync").add_arguments(src).add_arguments(dst).add_flags("log-level", "info")\
             .execute_azcopy_copy_command()
         self.assertTrue(result)
