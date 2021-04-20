@@ -29,7 +29,8 @@ class Blob_Sync_User_Scenario(unittest.TestCase):
         # the resource local path should be the first argument for the azcopy validator.
         # the resource sas should be the second argument for azcopy validator.
         resource_url = util.get_resource_sas(filename)
-        result = util.Command("testBlob").add_arguments(file_path).add_arguments(resource_url).execute_azcopy_verify()
+        result = util.Command("testBlob").add_arguments(
+            file_path).add_arguments(resource_url).execute_azcopy_verify()
         self.assertTrue(result)
 
         # Sync 1KB file to local using azcopy.
@@ -60,7 +61,8 @@ class Blob_Sync_User_Scenario(unittest.TestCase):
         # upload the directory
         # execute azcopy command
         result = util.Command("copy").add_arguments(dir_path).add_arguments(util.test_container_url). \
-            add_flags("recursive", "true").add_flags("log-level", "info").execute_azcopy_copy_command()
+            add_flags("recursive", "true").add_flags(
+                "log-level", "info").execute_azcopy_copy_command()
         self.assertTrue(result)
 
         # execute the validator.
@@ -71,7 +73,7 @@ class Blob_Sync_User_Scenario(unittest.TestCase):
 
         # sync to local
         src = vdir_sas
-        dst = dir_path
+        dst = dir_path + "/"
         result = util.Command("sync").add_arguments(src).add_arguments(dst).add_flags("log-level", "info")\
             .execute_azcopy_copy_command()
         self.assertTrue(result)
@@ -102,9 +104,11 @@ class Blob_Sync_User_Scenario(unittest.TestCase):
         # verifying the uploaded blobs.
         # the resource local path should be the first argument for the azcopy validator.
         # the resource sas should be the second argument for azcopy validator.
-        result = util.Command("testBlob").add_arguments(content_file_path).add_arguments(src_blob_path).execute_azcopy_verify()
+        result = util.Command("testBlob").add_arguments(
+            content_file_path).add_arguments(src_blob_path).execute_azcopy_verify()
         self.assertTrue(result)
-        result = util.Command("testBlob").add_arguments(content_file_path).add_arguments(dst_blob_path).execute_azcopy_verify()
+        result = util.Command("testBlob").add_arguments(
+            content_file_path).add_arguments(dst_blob_path).execute_azcopy_verify()
         self.assertTrue(result)
 
         # perform the single blob sync using azcopy.
@@ -126,7 +130,8 @@ class Blob_Sync_User_Scenario(unittest.TestCase):
         # upload the directory
         # execute azcopy command
         result = util.Command("copy").add_arguments(content_dir_path).add_arguments(src_vdir_path). \
-            add_flags("recursive", "true").add_flags("log-level", "info").execute_azcopy_copy_command()
+            add_flags("recursive", "true").add_flags(
+                "log-level", "info").execute_azcopy_copy_command()
         self.assertTrue(result)
 
         # execute the validator.
