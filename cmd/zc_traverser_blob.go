@@ -66,6 +66,19 @@ func (t *blobTraverser) isDirectory(isSource bool) bool {
 		return isDirDirect
 	}
 
+	_, isSingleBlob, _, err := t.getPropertiesIfSingleBlob()
+
+	if stgErr, ok := err.(azblob.StorageError); ok {
+		// We know for sure this is a single blob still, let it walk on through to the traverser.
+		if stgErr.ServiceCode() == common.CPK_ERROR_SERVICE_CODE {
+			return false
+		}
+	}
+
+	if err == nil && isSingleBlob {
+		return false
+	}
+
 	blobURLParts := azblob.NewBlobURLParts(*t.rawURL)
 	containerRawURL := copyHandlerUtil{}.getContainerUrl(blobURLParts)
 	containerURL := azblob.NewContainerURL(containerRawURL, t.p)
