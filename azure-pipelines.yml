@@ -24,7 +24,7 @@ jobs:
           #GOARCH=amd64 GOOS=windows go build -o "$(Build.ArtifactStagingDirectory)/azcopy_windows_amd64.exe"
           #GOARCH=386 GOOS=windows go build -o "$(Build.ArtifactStagingDirectory)/azcopy_windows_386.exe"
           #cp NOTICE.txt $(Build.ArtifactStagingDirectory)
-          GOARCH=arm64 GOOS=linux go build -o azcopy_linux_arm64"
+          GOARCH=arm64 GOOS=linux go build -o azcopy_linux_arm64
         displayName: 'Generate builds'
 
       #- task: PublishBuildArtifacts@1
