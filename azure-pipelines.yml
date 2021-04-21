@@ -26,20 +26,7 @@ jobs:
   - job: AArch64_Manylinux2014Build
     pool:
       vmImage: 'ubuntu-18.04'
-    strategy:
-      matrix:
-        Py36 Arm64:
-          python.version: 'cp36-cp36m'
-          manylinux: 'manylinux_aarch64'
-        Py37 Arm64:
-          python.version: 'cp37-cp37m'
-          manylinux: 'manylinux_aarch64'
-        Py38 Arm64:
-          python.version: 'cp38-cp38'
-          manylinux: 'manylinux_aarch64'
-        Py39 Arm64:
-          python.version: 'cp39-cp39'
-          manylinux: 'manylinux_aarch64'
+
     steps:
     - script: docker run --rm --privileged hypriot/qemu-register
       displayName: 'Registering qemu'
@@ -58,6 +45,7 @@ jobs:
         DOCKER_ROOT_DIRECTORY: "/home/source_root"
         HOST_USER_ID: $(id -u)
         PYBIN: /opt/python/$(python.version)/bin
+        
       #- task: PublishBuildArtifacts@1
        # displayName: 'Publish Artifacts'
         #condition: succeededOrFailed()
