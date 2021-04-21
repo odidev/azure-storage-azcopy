@@ -20,7 +20,7 @@ jobs:
         inputs:
           version: '1.15'
       - script: |
-          GOARCH=arm64 GOOS=linux go build -o azcopy_linux_arm64
+          #GOARCH=arm64 GOOS=linux go build -o azcopy_linux_arm64
         displayName: 'Generate builds'
         
   - job: AArch64_Manylinux2014Build
@@ -35,12 +35,7 @@ jobs:
                    -e HOST_USER_ID \
                     "quay.io/pypa/manylinux2014_aarch64:latest" \
                     bash -c "cd $DOCKER_ROOT_DIRECTORY;
-                    "${PYBIN}/pip" install --upgrade pip && \
-                    "${PYBIN}/pip" install twine numpy && \
-                    "${PYBIN}/pip" wheel . -w wheelhouse/ && \
-                    auditwheel repair wheelhouse/deap*.whl --plat manylinux2014_aarch64 -w wheelhouse-manylinux && \
-                    "${PYBIN}/python" -m twine upload -r pypi -u $(twineUsername) -p $(twinePassword) --skip-existing --disable-progress-bar wheelhouse-manylinux/*"
-      displayName: 'Running AArch64 build'
+                    GOARCH=arm64 GOOS=linux go build -o azcopy_linux_arm64
       env:
         DOCKER_ROOT_DIRECTORY: "/home/source_root"
         HOST_USER_ID: $(id -u)
