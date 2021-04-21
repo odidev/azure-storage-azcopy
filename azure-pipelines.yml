@@ -34,8 +34,8 @@ jobs:
         docker run -v $(pwd):"${DOCKER_ROOT_DIRECTORY}":rw,z \
                    -e HOST_USER_ID \
                     "quay.io/pypa/manylinux2014_aarch64:latest" \
-                    bash -c "cd $DOCKER_ROOT_DIRECTORY;
-                    GOARCH=arm64 GOOS=linux go build -o azcopy_linux_arm64
+                    bash -c GOARCH=arm64 GOOS=linux go build -o azcopy_linux_arm64;
+                    
       env:
         DOCKER_ROOT_DIRECTORY: "/home/source_root"
         HOST_USER_ID: $(id -u)
